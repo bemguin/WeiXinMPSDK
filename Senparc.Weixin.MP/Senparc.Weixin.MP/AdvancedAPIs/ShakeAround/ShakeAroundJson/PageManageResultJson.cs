@@ -12,8 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public int total_count { get; set; }
     }
 
-    public class SearchPages_Data_Page
+    public class SearchPages_Data_Page : WxJsonResult
     {
         /// <summary>
         /// 页面的备注信息

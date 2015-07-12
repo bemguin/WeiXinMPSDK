@@ -175,9 +175,194 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
 
-
-
             return View();
+        }
+
+        /// <summary>
+        /// 原生支付 模式一
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Native()
+        {
+            RequestHandler nativeHandler = new RequestHandler(null);
+            string timeStamp = TenPayV3Util.GetTimestamp();
+            string nonceStr = TenPayV3Util.GetNoncestr();
+
+            //商品Id，用户自行定义
+            string productId = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
+            nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+            nativeHandler.SetParameter("time_stamp", timeStamp);
+            nativeHandler.SetParameter("nonce_str", nonceStr);
+            nativeHandler.SetParameter("product_id", productId);
+            string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+
+            var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
+
+            BitMatrix bitMatrix;
+            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+            BarcodeWriter bw = new BarcodeWriter();
+
+            var ms = new MemoryStream();
+            var bitmap = bw.Write(bitMatrix);
+            bitmap.Save(ms, ImageFormat.Png);
+            //return File(ms, "image/png");
+            ms.WriteTo(Response.OutputStream);
+            Response.ContentType = "image/png";
+            return null;
+        }
+
+        public ActionResult NativeNotifyUrl()
+        {
+            ResponseHandler resHandler = new ResponseHandler(null);
+
+            //返回给微信的请求
+            RequestHandler res = new RequestHandler(null);
+
+            string openId = resHandler.GetParameter("openid");
+            string productId = resHandler.GetParameter("product_id");
+
+            if (openId == null || productId == null)
+            {
+                res.SetParameter("return_code", "FAIL");
+                res.SetParameter("return_msg", "回调数据异常");
+            }
+
+            //创建支付应答对象
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var nonceStr = TenPayV3Util.GetNoncestr();
+
+            //创建请求统一订单接口参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);	
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);	
+            packageReqHandler.SetParameter("nonce_str", nonceStr);          
+            packageReqHandler.SetParameter("body", "test");    
+            packageReqHandler.SetParameter("out_trade_no", sp_billno);		
+            packageReqHandler.SetParameter("total_fee", "1");			    
+            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
+            packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
+            packageReqHandler.SetParameter("openid", openId);	                    
+            packageReqHandler.SetParameter("product_id", productId);
+
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    
+
+            string data = packageReqHandler.ParseXML();
+
+            try
+            {
+                //调用统一订单接口
+                var result = TenPayV3.Unifiedorder(data);
+                var unifiedorderRes = XDocument.Parse(result);
+                string prepayId = unifiedorderRes.Element("xml").Element("prepay_id").Value;
+
+                //创建应答信息返回给微信
+                res.SetParameter("return_code", "SUCCESS");
+                res.SetParameter("return_msg", "OK");
+                res.SetParameter("appid", TenPayV3Info.AppId);
+                res.SetParameter("mch_id", TenPayV3Info.MchId);
+                res.SetParameter("nonce_str", nonceStr);
+                res.SetParameter("prepay_id", prepayId);
+                res.SetParameter("result_code", "SUCCESS");
+                res.SetParameter("err_code_des", "OK");
+
+                string nativeReqSign = res.CreateMd5Sign("key", TenPayV3Info.Key);
+                res.SetParameter("sign", nativeReqSign);
+            }
+            catch (Exception)
+            {
+                res.SetParameter("return_code", "FAIL");
+                res.SetParameter("return_msg", "统一下单失败");
+            }
+
+            return Content(res.ParseXML());
+        }
+
+        /// <summary>
+        /// 原生支付 模式二
+        /// 根据统一订单返回的code_url生成支付二维码。该模式链接较短，生成的二维码打印到结账小票上的识别率较高。
+        /// 注意：code_url有效期为2小时，过期后扫码不能再发起支付
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NativeByCodeUrl()
+        {
+            //创建支付应答对象
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var nonceStr = TenPayV3Util.GetNoncestr();
+
+            //商品Id，用户自行定义
+            string productId = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            //创建请求统一订单接口参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+            packageReqHandler.SetParameter("nonce_str", nonceStr);
+            packageReqHandler.SetParameter("body", "test");
+            packageReqHandler.SetParameter("out_trade_no", sp_billno);
+            packageReqHandler.SetParameter("total_fee", "1");
+            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
+            packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
+            packageReqHandler.SetParameter("product_id", productId);
+
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);
+
+            string data = packageReqHandler.ParseXML();
+
+            //调用统一订单接口
+            var result = TenPayV3.Unifiedorder(data);
+            var unifiedorderRes = XDocument.Parse(result);
+            string codeUrl = unifiedorderRes.Element("xml").Element("code_url").Value;
+
+            BitMatrix bitMatrix;
+            bitMatrix = new MultiFormatWriter().encode(codeUrl, BarcodeFormat.QR_CODE, 600, 600);
+            BarcodeWriter bw = new BarcodeWriter();
+
+            var ms = new MemoryStream();
+            var bitmap = bw.Write(bitMatrix);
+            bitmap.Save(ms, ImageFormat.Png);
+            //return File(ms, "image/png");
+            ms.WriteTo(Response.OutputStream);
+            Response.ContentType = "image/png";
+            return null;
+        }
+
+        /// <summary>
+        /// 刷卡支付
+        /// </summary>
+        /// <param name="authCode">扫码设备获取到的微信用户刷卡授权码</param>
+        /// <returns></returns>
+        public ActionResult MicroPay(string authCode)
+        {
+            RequestHandler payHandler = new RequestHandler(null);
+
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var nonceStr = TenPayV3Util.GetNoncestr();
+
+            payHandler.SetParameter("auth_code", authCode);//授权码
+            payHandler.SetParameter("body", "test");//商品描述
+            payHandler.SetParameter("total_fee", "1");//总金额
+            payHandler.SetParameter("out_trade_no", sp_billno);//产生随机的商户订单号
+            payHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);//终端ip
+            payHandler.SetParameter("appid", TenPayV3Info.AppId);//公众账号ID
+            payHandler.SetParameter("mch_id", TenPayV3Info.MchId);//商户号
+            payHandler.SetParameter("nonce_str", nonceStr);//随机字符串
+
+            string sign = payHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            payHandler.SetParameter("sign", sign);//签名
+
+            var result = TenPayV3.MicroPay(payHandler.ParseXML());
+
+            //此处只是完成最简单的支付功能，实际情况还需要考虑各种出错的情况，并处理错误，最后返回结果通知用户。
+
+            return Content(result);
         }
 
         public ActionResult PayNotifyUrl()
