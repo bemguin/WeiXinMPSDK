@@ -17,9 +17,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Poi;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     #region 商户在使用门店管理接口时需注意以下几个问题：
 
@@ -59,7 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
                     accessToken);
 
                 var fileDictionary = new Dictionary<string, string>();
@@ -176,6 +177,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
                 var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken);
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取门店类目表
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static GetCategoryResult GetCategory(string accessTokenOrAppId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/api_getwxcategory?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }

@@ -25,11 +25,12 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.QY.AdvancedAPIs.Mass;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 发送消息
@@ -217,10 +218,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
                 {
                     articles = articles.Select(z => new
                                 {
-                                    title = z.title,
-                                    description = z.description,
-                                    url = z.url,
-                                    picurl = z.picurl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                                    title = z.Title,
+                                    description = z.Description,
+                                    url = z.Url,
+                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                                 }).ToList()
                 }
             };

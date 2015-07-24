@@ -18,12 +18,13 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.ComponentAPIs.LoginOAuth;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.Open.OAuthJoin
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
-    public static class OAuthJoinAPI
+    public static class LoginOAuthApi
     {
         /// <summary>
         /// 获取授权地址
@@ -32,7 +33,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
         /// <param name="preAuthCode">预授权码</param>
         /// <param name="redirectUrl">回调URL</param>
         /// <returns></returns>
-        public static string GetJoinAuthorizeUrl(string componentAppId, string preAuthCode, string redirectUrl)
+        public static string GetComponentLoginPageUrl(string componentAppId, string preAuthCode, string redirectUrl)
         {
             /*
              * 授权流程完成后，会进入回调URI，并在URL参数中返回授权码和过期时间(redirect_url?auth_code=xxx&expires_in=600)
@@ -51,10 +52,11 @@ namespace Senparc.Weixin.Open.OAuthJoin
         /// </summary>
         /// <param name="componentAppId">服务开发方的appid</param>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
-        /// <param name="authCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+        /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static OAuthJoinResult GetJoinAccessToken(string componentAccessToken, string componentAppId, string authCode, int timeOut = Config.TIME_OUT)
+        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode
+            , int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -63,10 +65,10 @@ namespace Senparc.Weixin.Open.OAuthJoin
             var data = new
                 {
                     component_appid = componentAppId,
-                    authorization_code = authCode
+                    authorization_code = authorizationCode
                 };
 
-            return CommonJsonSend.Send<OAuthJoinResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
