@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：MediaController.cs
     文件功能描述：根据mediaId获取语音
@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public FileResult GetVoice(string mediaId)
         {
-            var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+            var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
 
             MemoryStream ms = new MemoryStream();
             AdvancedAPIs.MediaApi.Get(accessToken, mediaId, ms);

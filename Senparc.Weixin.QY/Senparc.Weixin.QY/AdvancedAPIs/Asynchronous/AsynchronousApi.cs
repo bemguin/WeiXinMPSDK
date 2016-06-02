@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -12,17 +12,9 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E6%8E%A5%E5%8F%A3
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -208,7 +200,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public static AsynchronousInviteUserResult GetInviteUserResult(string accessToken, string jobId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
-                                    accessToken, jobId);
+                                    accessToken.AsUrlData(), jobId.AsUrlData());
 
             return Get.GetJson<AsynchronousInviteUserResult>(url);
         }
@@ -222,7 +214,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public static AsynchronousReplaceUserResult GetReplaceUserResult(string accessToken, string jobId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
-                                    accessToken, jobId);
+                                    accessToken.AsUrlData(), jobId.AsUrlData());
 
             return Get.GetJson<AsynchronousReplaceUserResult>(url);
         }
@@ -236,7 +228,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public static AsynchronousReplacePartyResult GetReplacePartyResult(string accessToken, string jobId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
-                                    accessToken, jobId);
+                                    accessToken.AsUrlData(), jobId.AsUrlData());
 
             return Get.GetJson<AsynchronousReplacePartyResult>(url);
         }

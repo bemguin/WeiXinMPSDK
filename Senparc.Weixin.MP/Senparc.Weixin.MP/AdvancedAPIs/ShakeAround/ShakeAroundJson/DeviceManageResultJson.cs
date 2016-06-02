@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：DeviceManageResultJson.cs
     文件功能描述：设备管理返回结果
@@ -8,12 +8,8 @@
     创建标识：Senparc - 20150512
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {
@@ -48,12 +44,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public string audit_comment { get; set; }
     }
 
+    /// <summary>
+    /// 设备参数
+    /// </summary>
     public class DeviceApply_Data_Device_Identifiers
     {
         /// <summary>
         /// 设备编号
         /// </summary>
-        public long device_id { get; set; }
+        public long? device_id { get; set; }
         public string uuid { get; set; }
         public long major { get; set; }
         public long minor { get; set; }

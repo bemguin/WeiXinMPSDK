@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
@@ -9,12 +9,12 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -22,7 +22,7 @@ using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.Entities
 {
-	public interface IResponseMessageBase : Senparc.Weixin.Entities.IResponseMessageBase, IMessageBase
+	public interface IResponseMessageBase : Weixin.Entities.IResponseMessageBase, IMessageBase
 	{
 		ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.QY.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
 			ResponseMessageBase responseMessage = null;
 			try
@@ -73,6 +73,9 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.MpNews:
 						responseMessage = new ResponseMessageMpNews();
 						break;
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+				        break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
@@ -148,7 +151,10 @@ namespace Senparc.Weixin.QY.Entities
                     case ResponseMsgType.MpNews:
                         responseMessage = new ResponseMessageMpNews();
 						break;
-				}
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                }
 
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;

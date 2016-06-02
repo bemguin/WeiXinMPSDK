@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：PostModel.cs
     文件功能描述：微信企业号服务器Post过来的参数集合（不包括PostData）
@@ -11,11 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.QY.Entities
 {

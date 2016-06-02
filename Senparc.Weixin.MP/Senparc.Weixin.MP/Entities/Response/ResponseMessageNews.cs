@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ResponseMessageNews.cs
     文件功能描述：响应回复图文消息
@@ -11,13 +11,13 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 图文消息
+    /// </summary>
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
         new public virtual ResponseMsgType MsgType

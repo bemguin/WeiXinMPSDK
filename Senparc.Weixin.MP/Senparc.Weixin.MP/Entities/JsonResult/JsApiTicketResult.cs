@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：JsApiTicketResult.cs
     文件功能描述：jsapi_ticket请求后的JSON返回格式
@@ -12,9 +12,6 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
@@ -22,6 +19,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
+    [Serializable]
     public class JsApiTicketResult : WxJsonResult
     {
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：GetMediaCountResultJson.cs
     文件功能描述：获取素材总数返回结果
@@ -8,12 +8,7 @@
     创建标识：Senparc - 20150324
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 {

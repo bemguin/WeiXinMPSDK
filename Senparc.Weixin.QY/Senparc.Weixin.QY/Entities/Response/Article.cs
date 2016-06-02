@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：Article.cs
     文件功能描述：响应回复消息 图文类
@@ -13,11 +13,6 @@
     修改标识：Senparc - 20150708
     修改描述：增加注释
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.QY.Entities
 {

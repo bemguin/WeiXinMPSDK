@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：GroupsAPI.cs
     文件功能描述：用户组接口
@@ -18,18 +18,10 @@
    API地址：http://mp.weixin.qq.com/wiki/0/56d992c605a97245eb7e617854b169fc.html
 */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -64,7 +56,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 发送文本信息
+        /// 获取所有分组
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <returns></returns>
@@ -73,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token={0}";
-                var url = string.Format(urlFormat, accessToken);
+                var url = string.Format(urlFormat, accessToken.AsUrlData());
                 return HttpUtility.Get.GetJson<GroupsJson>(url);
 
             }, accessTokenOrAppId);

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：GoogleMapHelper.cs
     文件功能描述：获取谷歌今天静态地图Url
@@ -15,9 +15,7 @@
      API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities.GoogleMap;
 

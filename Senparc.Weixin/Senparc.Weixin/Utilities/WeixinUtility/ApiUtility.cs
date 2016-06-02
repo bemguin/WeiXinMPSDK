@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：StreamUtility.cs
     文件功能描述：微信对象公共类
@@ -8,10 +8,6 @@
     创建标识：Senparc - 20150703
     
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.Utilities.WeixinUtility
 {

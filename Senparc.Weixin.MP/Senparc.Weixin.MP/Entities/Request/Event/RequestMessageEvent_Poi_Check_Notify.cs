@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_Poi_Check_Notify.cs
     文件功能描述：事件之审核结果事件推送
@@ -7,11 +7,6 @@
     
     创建标识：Senparc - 20150513
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
@@ -14,16 +14,12 @@
 /*
  * V3.1
  */
+
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MessageHandlers
 {
@@ -138,9 +134,14 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
+                if (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse)
+                {
+                    return "";
+                }
+
                 if (_textResponseMessage == null)
                 {
-                    return ResponseDocument == null ? null : ResponseDocument.ToString();
+                    return /*ResponseDocument == null ? null : */ ResponseDocument.ToString();
                 }
                 else
                 {
@@ -192,7 +193,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 使用requestMessageBase的构造函数
         /// </summary>
-        /// <param name="postDataDocument"></param>
+        /// <param name="requestMessageBase"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
@@ -216,14 +217,15 @@ namespace Senparc.Weixin.MessageHandlers
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
 
-        /// <summary>
-        /// 执行微信请求
-        /// </summary>
-        public abstract void Execute();
 
         public virtual void OnExecuting()
         {
         }
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        public abstract void Execute();
 
         public virtual void OnExecuted()
         {

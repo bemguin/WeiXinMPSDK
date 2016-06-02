@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
@@ -15,18 +15,9 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E5%8F%B7%E5%BA%94%E7%94%A8
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.QY.AdvancedAPIs.App;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.App;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -44,7 +35,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetAppInfoResult GetAppInfo(string accessToken, int agentId, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken, agentId);
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
 
             return Get.GetJson<GetAppInfoResult>(url);
         }
@@ -59,7 +50,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
-            string url =string.Format( "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}",accessToken);
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
             return Get.GetJson<QyJsonResult>(url);
         }
@@ -72,7 +63,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetAppListResult GetAppList(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}",accessToken);
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
 
             return Get.GetJson<GetAppListResult>(url);
         }

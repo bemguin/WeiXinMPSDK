@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
   
     文件名：ResponseMessageFactory.cs
     文件功能描述：获取XDocument转换后的IResponseMessageBase实例
@@ -12,18 +12,14 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY
 {
-    using Senparc.Weixin.QY.Entities;
-
-   public static class ResponseMessageFactory
+    public static class ResponseMessageFactory
     {
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -21,12 +21,6 @@
     userid转换成openid API地址:http://qydev.weixin.qq.com/wiki/index.php?title=Userid%E4%B8%8Eopenid%E4%BA%92%E6%8D%A2%E6%8E%A5%E5%8F%A3
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.Entities;
 
@@ -69,7 +63,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 */
             #endregion
 
-            var url = string.Format(API_URL + "/gettoken?corpid={0}&corpsecret={1}", corpId, corpSecret);
+            var url = string.Format(API_URL + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = Get.GetJson<AccessTokenResult>(url);
             return result;
         }
@@ -81,7 +75,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static GetCallBackIpResult GetCallBackIp(string accessToken)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
             return Get.GetJson<GetCallBackIpResult>(url);
         }
@@ -97,7 +91,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var accessToken = GetToken(corpId, corpSecret).access_token;
 
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token={0}",
-                                    accessToken);
+                                    accessToken.AsUrlData());
 
             JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
             return result;
@@ -134,7 +128,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public static ConvertToOpenIdResult ConvertToOpenId(string accessToken, string userId, string agentId = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token={0}",
-                accessToken);
+                accessToken.AsUrlData());
 
             var data = new
             {
@@ -155,7 +149,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public static ConvertToUserIdResult ConvertToUserId(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token={0}",
-                accessToken);
+                accessToken.AsUrlData());
 
             var data = new
             {

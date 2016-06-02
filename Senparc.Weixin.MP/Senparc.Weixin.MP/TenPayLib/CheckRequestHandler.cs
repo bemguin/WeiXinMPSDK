@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
  
     文件名：CheckRequestHandler.cs
     文件功能描述：对账单下载接口
@@ -11,11 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using System.Web;
-using System.Collections;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib

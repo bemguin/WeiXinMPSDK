@@ -1,40 +1,28 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
-    
+    Copyright (C) 2016 Senparc
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150303
     修改描述：添加企业号返回码
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin
 {
-
-
     /// <summary>
-    /// 企业接收消息类型
+    /// CommonJsonSend中的http提交类型
     /// </summary>
-    public enum QyRequestMsgType
+    public enum CommonJsonSendType
     {
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        Event, //事件推送
+        GET,
+        POST
     }
 
     /// <summary>
@@ -128,15 +116,15 @@ namespace Senparc.Weixin
         无效客服账号invalid_kf_account = 61452,
         客服帐号已存在kf_account_exsited = 61453,
         /// <summary>
-        /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length) 
+        /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
         /// </summary>
         客服帐号名长度超过限制 = 61454,
         /// <summary>
-        /// 客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account) 
+        /// 客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
         /// </summary>
         客服帐号名包含非法字符 = 61455,
         /// <summary>
-        ///  	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
+        ///  	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
         /// </summary>
         客服帐号个数超过限制 = 61456,
         无效头像文件类型invalid_file_type = 61457,

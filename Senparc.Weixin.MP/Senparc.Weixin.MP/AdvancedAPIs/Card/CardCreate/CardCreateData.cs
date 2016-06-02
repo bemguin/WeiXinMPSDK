@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：CardCreateData.cs
     文件功能描述：所有类型的卡券数据
@@ -12,13 +12,10 @@
     
     修改标识：Senparc - 20150323
     修改描述：添加会议门票类型
+    
+    修改标识：hello2008zj - 20160502
+    修改描述：v13.7.8 添加 Card_MemberCardData.background_pic_url
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -136,6 +133,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public bool auto_activate { get; set; }
         /// <summary>
+        /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
+        /// 非必填
+        /// </summary>
+        public bool wx_activate { get; set; }
+        /// <summary>
         /// 积分清零规则
         /// 非必填
         /// </summary>
@@ -193,6 +195,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
+        /// <summary>
+        /// 会员卡背景图片，非必填
+        /// </summary>
+        public string background_pic_url { get; set; }
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)

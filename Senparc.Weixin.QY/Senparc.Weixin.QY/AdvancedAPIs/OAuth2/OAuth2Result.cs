@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：OAuth2Result.cs
     文件功能描述：获取成员信息返回结果
@@ -17,10 +17,6 @@
     修改描述：GetUserIdResult变更为GetUserInfoResult，增加OpenId字段
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2

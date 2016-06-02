@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(int productId = 0, int hc = 0)
         {
-            var returnUrl = string.Format("http://weixin.senparc.com/TenPayV3/JsApi");
+            var returnUrl = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 
@@ -536,12 +536,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("wxappid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
             packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
-            packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
             packageReqHandler.SetParameter("send_name", "红包发送者名称");                 //红包发送者名称
             packageReqHandler.SetParameter("re_openid", "接受收红包的用户的openId");                 //接受收红包的用户的openId
             packageReqHandler.SetParameter("total_amount", "100");                //付款金额，单位分
-            packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
-            packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
             packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
             packageReqHandler.SetParameter("wishing", "红包祝福语");               //红包祝福语
             packageReqHandler.SetParameter("client_ip", Request.UserHostAddress);               //调用接口的机器Ip地址
@@ -549,6 +546,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
             packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            //最新的官方文档中将以下三个字段去除了
+            //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
+            //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
+            //packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
+
+
             //发红包需要post的数据
             string data = packageReqHandler.ParseXML();
 
@@ -742,7 +746,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,
+            var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,
                 product.GetHashCode(), DateTime.Now.Ticks);
 
             BitMatrix bitMatrix;

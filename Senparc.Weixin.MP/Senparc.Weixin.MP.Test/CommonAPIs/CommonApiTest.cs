@@ -29,7 +29,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         _appConfig = new
                         {
                             AppId = doc.Root.Element("AppId").Value,
-                            Secret = doc.Root.Element("Secret").Value
+                            Secret = doc.Root.Element("Secret").Value,
+                            MchId = doc.Root.Element("MchId").Value,
+                            TenPayKey = doc.Root.Element("TenPayKey").Value,
+                            TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
                         };
                     }
                     else
@@ -37,7 +40,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         _appConfig = new
                         {
                             AppId = "YourAppId", //换成你的信息
-                            Secret = "YourSecret"//换成你的信息
+                            Secret = "YourSecret",//换成你的信息
+                            MchId = "YourMchId",//换成你的信息
+                            TenPayKey = "YourTenPayKey",//换成你的信息
+                            TenPayCertPath = "YourTenPayCertPath",//换成你的信息
                         };
                     }
                 }
@@ -55,9 +61,24 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             get { return AppConfig.Secret; }
         }
 
+        protected string _mchId
+        {
+            get { return AppConfig.MchId; }
+        }
+
+        protected string _tenPayKey
+        {
+            get { return AppConfig.TenPayKey; }
+        }
+
+        protected string _tenPayCertPath
+        {
+            get { return AppConfig.TenPayCertPath; }
+        }
+
 
         /* 由于获取accessToken有次数限制，为了节约请求，
-        * 可以到 http://weixin.senparc.com/Menu 获取Token之后填入下方，
+        * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，
         * 使用当前可用Token直接进行测试。
         */
         private string _access_token = null;
@@ -73,7 +94,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             if (getNew || string.IsNullOrEmpty(_testOpenId))
             {
-                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var openIdResult = UserApi.Get(accessToken, null);
                 _testOpenId = openIdResult.data.openid.First();
             }
@@ -85,8 +106,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
 
-            //全局只需注册一次
-            JsApiTicketContainer.Register(_appId, _appSecret);
+            //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
+            ////全局只需注册一次
+            //JsApiTicketContainer.Register(_appId, _appSecret);
         }
 
         [TestMethod]
@@ -118,7 +140,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             try
             {
-                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var result = CommonApi.GetUserInfo(accessToken, _testOpenId);
                 Assert.IsNotNull(result);
             }

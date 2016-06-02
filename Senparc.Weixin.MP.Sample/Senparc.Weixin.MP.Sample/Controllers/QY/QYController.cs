@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：QYController.cs
     文件功能描述：企业号对接测试
@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Get），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
+        /// 微信后台验证地址（使用Get），微信企业后台应用的“修改配置”的Url填写如：http://sdk.weixin.senparc.com/qy
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Post），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
+        /// 微信后台验证地址（使用Post），微信企业后台应用的“修改配置”的Url填写如：http://sdk.weixin.senparc.com/qy
         /// </summary>
         [HttpPost]
         [ActionName("Index")]

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：MD5UtilHelper.cs
     文件功能描述：获取大写的MD5签名结果
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.Helpers
 			}
 			outputBye = m5.ComputeHash(inputBye);
 
-			retStr = System.BitConverter.ToString(outputBye);
+			retStr = BitConverter.ToString(outputBye);
 			retStr = retStr.Replace("-", "").ToUpper();
 			return retStr;
 		}

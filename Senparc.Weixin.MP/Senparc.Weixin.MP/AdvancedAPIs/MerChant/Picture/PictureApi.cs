@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：OrderApi.cs
     文件功能描述：微小店图片接口
@@ -12,13 +12,8 @@
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -31,14 +26,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         public static PictureResult UploadImg(string accessToken, string fileName)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken, fileName);
+            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData(), fileName.AsUrlData());
 
             var json=new PictureResult();
 
-            using (var fs = Senparc.Weixin.Helpers.FileHelper.GetFileStream(fileName))
+            using (var fs = FileHelper.GetFileStream(fileName))
             {
-                var jsonText = Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(url, null, fs);
-                json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
+                var jsonText = RequestUtility.HttpPost(url, null, fs);
+                json = Post.GetResult<PictureResult>(jsonText);
             }
             return json;
         }

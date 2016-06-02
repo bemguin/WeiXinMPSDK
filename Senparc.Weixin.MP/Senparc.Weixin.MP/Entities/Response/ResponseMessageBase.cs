@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
@@ -9,13 +9,14 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
 
@@ -29,7 +30,7 @@ namespace Senparc.Weixin.MP.Entities
 	}
 
 	/// <summary>
-	/// 响应回复消息
+	/// 微信公众号响应回复消息
 	/// </summary>
     public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
 	{
@@ -47,7 +48,7 @@ namespace Senparc.Weixin.MP.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
 			ResponseMessageBase responseMessage = null;
 			try
@@ -75,7 +76,10 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.Transfer_Customer_Service:
 						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
-					default:
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                    default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
 
@@ -102,7 +106,7 @@ namespace Senparc.Weixin.MP.Entities
 		{
 			try
 			{
-				var tType = typeof(T);
+                var tType = typeof(T);
 				var responseName = tType.Name.Replace("ResponseMessage", ""); //请求名称
 				ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
 				return CreateFromRequestMessage(requestMessage, msgType) as T;
@@ -154,7 +158,7 @@ namespace Senparc.Weixin.MP.Entities
                         responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
 				}
-
+                
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;
 			}

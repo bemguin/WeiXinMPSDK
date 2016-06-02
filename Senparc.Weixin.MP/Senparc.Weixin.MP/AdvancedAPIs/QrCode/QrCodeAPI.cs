@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：QrCodeAPI.cs
     文件功能描述：二维码接口
@@ -21,11 +21,8 @@
     API：http://mp.weixin.qq.com/wiki/index.php?title=%E7%94%9F%E6%88%90%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E4%BA%8C%E7%BB%B4%E7%A0%81
  */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -120,7 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static string GetShowQrCodeUrl(string ticket)
         {
             var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
-            return string.Format(urlFormat, ticket);
+            return string.Format(urlFormat, ticket.AsUrlData());
         }
 
         /// <summary>
@@ -132,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            HttpUtility.Get.Download(url, stream);
+            Get.Download(url, stream);
         }
 
     }

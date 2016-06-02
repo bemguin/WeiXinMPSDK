@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -12,9 +12,7 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib

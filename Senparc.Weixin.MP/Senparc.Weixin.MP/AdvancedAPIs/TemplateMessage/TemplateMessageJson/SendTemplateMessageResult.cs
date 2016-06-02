@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：SendTemplateMessageResult.cs
     文件功能描述：发送模板消息结果
@@ -11,10 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
@@ -27,6 +23,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <summary>
         /// msgid
         /// </summary>
-        public int msgid { get; set; }
+        public long msgid { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：UploadResultJson.cs
     文件功能描述：素材管理接口返回结果
@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150708
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.QY.Entities;
 
@@ -106,5 +103,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Media
         /// 图文消息，一个图文消息支持1到10个图文
         /// </summary>
         public List<MpNewsArticle> articles { get; set; }
+    }
+
+    public class uploadimgMediaResult
+    {
+        /// <summary>
+        /// 图片url，可放置于图文消息中的正文
+        /// </summary>
+        public string url { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
  
     文件名：RefundRequestHandler.cs
     文件功能描述：微信支付退款 请求处理
@@ -11,11 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
-using System.Collections;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

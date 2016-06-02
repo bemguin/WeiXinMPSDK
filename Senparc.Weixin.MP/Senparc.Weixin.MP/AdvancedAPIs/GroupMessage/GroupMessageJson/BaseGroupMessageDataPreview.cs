@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：BaseGroupMessageDataPreview.cs
     文件功能描述：预览群发所需的数据
@@ -13,11 +13,6 @@
     修改标识：Senparc - 20150702
     修改描述：修改结构，可根据微信号预览群发消息
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {

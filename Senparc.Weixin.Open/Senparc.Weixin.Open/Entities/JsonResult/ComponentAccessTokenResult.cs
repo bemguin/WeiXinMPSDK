@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ComponentAccessTokenResult.cs
     文件功能描述：获取第三方平台access_token
@@ -9,15 +9,13 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.Open.Entities
 {
     /// <summary>
     /// 获取第三方平台access_token
     /// </summary>
+    [Serializable]
     public class ComponentAccessTokenResult
     {
         /// <summary>

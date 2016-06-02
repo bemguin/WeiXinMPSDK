@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -15,22 +15,19 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Tencent;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
-    using System.Xml.Linq;
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
-
+    /// <summary>
+    /// RequestMessage消息处理方法工厂类
+    /// </summary>
     public static class RequestMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>
@@ -167,6 +164,12 @@ namespace Senparc.Weixin.MP
                             case "MERCHANT_ORDER"://微小店订单付款通知
                                 requestMessage = new RequestMessageEvent_Merchant_Order();
                                 break;
+                            case "SUBMIT_MEMBERCARD_USER_INFO"://接收会员信息事件通知
+                                requestMessage = new RequestMessageEvent_Submit_Membercard_User_Info();
+                                break;
+                            case "SHAKEAROUNDUSERSHAKE"://摇一摇事件通知
+                                requestMessage = new RequestMessageEvent_ShakearoundUserShake();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取XML转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
@@ -197,7 +200,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取内容为XML的Stream转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：BaseCardDetails.cs
     文件功能描述：卡券详情
@@ -13,12 +13,6 @@
     修改标识：Senparc - 20150323
     修改描述：添加新卡券类型：会议门票
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {

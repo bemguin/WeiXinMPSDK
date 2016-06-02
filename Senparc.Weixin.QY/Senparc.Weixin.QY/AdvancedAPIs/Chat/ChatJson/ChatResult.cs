@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ChatResult.cs
     文件功能描述：会话接口返回结果
@@ -8,13 +8,10 @@
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
+namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
 {
     /// <summary>
     /// 获取会话返回结果

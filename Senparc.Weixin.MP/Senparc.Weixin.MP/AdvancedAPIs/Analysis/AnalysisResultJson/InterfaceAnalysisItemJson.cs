@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：InterfaceAnalysisItemJson.cs
     文件功能描述：获取接口分析数据返回结果 单条数据类
@@ -13,12 +13,6 @@
     修改标识：Senparc - 20150310
     修改描述：修改类
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
 {

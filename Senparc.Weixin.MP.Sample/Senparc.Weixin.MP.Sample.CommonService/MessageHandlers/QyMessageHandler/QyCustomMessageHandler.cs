@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：QyCustomMessageHandler.cs
     文件功能描述：自定义QyMessageHandler
@@ -44,6 +44,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您刚发送的图片如下：";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = string.Format("位置坐标 {0} - {1}", requestMessage.Latitude, requestMessage.Longitude);
             return responseMessage;
         }
 

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
   
     文件名：AppUtility.cs
     文件功能描述：获取RequestMessage中ToUserName中的信息
@@ -9,10 +9,6 @@
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.MP.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.MP.AppStore.Utility
 {

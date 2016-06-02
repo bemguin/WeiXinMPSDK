@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：OrderApi.cs
     文件功能描述：微小店订单接口
@@ -13,11 +13,8 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
@@ -53,18 +50,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="beginTime">订单创建时间起始时间(不带该字段则不按照时间做筛选)</param>
         /// <param name="endTime">订单创建时间终止时间(不带该字段则不按照时间做筛选)</param>
         /// <returns></returns>
-        public static GetByFilterResult GetByFilterOrder(string accessToken, int status, long beginTime, long endTime)
+        public static GetByFilterResult GetByFilterOrder(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token={0}";
 
             var data = new
-                {
-                    status = status,
-                    begintime = beginTime,
-                    endtime = endTime
-                };
+            {
+                status = status,
+                begintime = beginTime.HasValue ? DateTimeHelper.GetWeixinDateTime(beginTime.Value) : (long?)null,
+                endtime = endTime.HasValue ? DateTimeHelper.GetWeixinDateTime(endTime.Value) : (long?)null
+            };
 
-            return CommonJsonSend.Send<GetByFilterResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<GetByFilterResult>(accessToken, urlFormat, data,jsonSetting:new JsonSetting(true));
         }
 
         /// <summary>

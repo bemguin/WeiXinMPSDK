@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendTextTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CustomApi.SendText(accessToken, openId, "来自平台的回复<>&\n换行了");
             Assert.IsNotNull(result);
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendImageTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CustomApi.SendImage(accessToken, openId, "10001037");
             Assert.IsNotNull(result);
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendVoiceTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             try
             {
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendVideoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             try
             {
@@ -73,22 +73,22 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendNewsTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var articles = new List<Article>();
             articles.Add(new Article()
             {
                 Title = "测试标题",
                 Description = "测试描述",
-                Url = "http://weixin.senparc.com",
-                PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
+                Url = "http://sdk.weixin.senparc.com",
+                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
             articles.Add(new Article()
             {
                 Title = "测试更多标题",
                 Description = "测试更多描述",
-                Url = "http://weixin.senparc.com",
-                PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
+                Url = "http://sdk.weixin.senparc.com",
+                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
 
             var result = CustomApi.SendNews(accessToken, openId, articles);

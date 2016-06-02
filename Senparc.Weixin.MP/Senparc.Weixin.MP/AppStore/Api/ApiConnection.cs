@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
   
     文件名：ApiConnection.cs
     文件功能描述：API链接
@@ -10,7 +10,6 @@
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.MP.AppStore.Api
 {

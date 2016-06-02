@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：BatchJobInfo.cs
     文件功能描述：异步任务完成事件推送的BatchJob
@@ -7,11 +7,6 @@
     
     创建标识：Senparc - 20150507
 ----------------------------------------------------------------*/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.QY.Entities
 {
